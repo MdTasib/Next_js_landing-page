@@ -7,6 +7,7 @@ import Performance from 'assets/key-feature/performance.svg';
 import Partnership from 'assets/key-feature/partnership.svg';
 import Subscription from 'assets/key-feature/subscription.svg';
 import Support from 'assets/key-feature/support.svg';
+import FeatureCard from 'components/feature-card';
 
 const data = [
   {
@@ -45,12 +46,32 @@ const data = [
 
 export default function KeyFeature() {
   return (
-   <h1>Key Feature</h1>
+    <section sx={{ variant: 'section.keyFeature' }} id='feature'>
+      <Container>
+        <SectionHeader
+          slogan='Whats The Function'
+          title='Meet the fueature of our product'
+        />
+
+        <Grid sx={styles.grid}>
+          {data.map((item) => (
+            <FeatureCardColumn
+              key={item.id}
+              src={item.imgSrc}
+              alt={item.altText}
+              title={item.title}
+              text={item.text}
+            />
+          ))}
+        </Grid>
+      </Container>
+    </section>
   );
 }
 
 const styles = {
   grid: {
+    padding: '40px 0px',
     width: ['100%', '80%', '100%'],
     mx: 'auto',
     gridGap: [
