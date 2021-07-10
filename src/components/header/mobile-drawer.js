@@ -4,13 +4,13 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import Drawer from 'components/drawer';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 import { Link } from 'react-scroll';
-import { FaFacebookF, FaTwitter, FaGithubAlt, FaDribbble } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaGithubAlt, FaFacebookF } from 'react-icons/fa';
 import menuItems from './header.data';
 
 const social = [
   {
     path: '/',
-    icon: <FaFacebookF />,
+    icon: <FaLinkedin />,
   },
   {
     path: '/',
@@ -22,13 +22,58 @@ const social = [
   },
   {
     path: '/',
-    icon: <FaDribbble />,
+    icon: <FaFacebookF />,
   },
 ];
 
 export default function MobileDrawer() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
-   <h1>Mobile Drawer</h1>
+    <Drawer
+      width='320px'
+      drawerHandler={
+        <Box sx={styles.handler}>
+          <IoMdMenu size='26px' />
+        </Box>
+      }
+      open={isDrawerOpen}
+      toggleHandler={() => setIsDrawerOpen((prevState) => !prevState)}
+      closeButton={<IoMdClose size='24px' color='#000' cursor='pointer' />}
+      drawerStyle={styles.drawer}
+      closeBtnStyle={styles.close}
+    >
+      <Scrollbars autoHide>
+        <Box sx={styles.content}>
+          <Box sx={styles.menu}>
+            {menuItems.map((menuItem, i) => (
+              <Link
+                key={i}
+                activeClass='active'
+                to={menuItem.path}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+              >
+                {menuItem.label}
+              </Link>
+            ))}
+          </Box>
+        </Box>
+        <Box sx={styles.menuFooter}>
+          <Box sx={styles.social}>
+            {
+              social.map((socialItem, i) => (
+                <Box as='span' key={i} sx={styles.social.icon}>
+                  <Link to={socialItem.path}>{socialItem.icon}</Link>
+                </Box>
+              ))
+            }
+          </Box>
+        </Box>
+      </Scrollbars>
+    </Drawer>
   );
 };
 
@@ -47,7 +92,7 @@ const styles = {
 
   drawer: {
     width: '100%',
-    height: '100%',
+    height: '70%',
     backgroundColor: 'dark',
   },
 
@@ -56,19 +101,19 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: '25px',
-    right: '30px',
+    top: '40px',
+    right: '40px',
     zIndex: '1',
     cursor: 'pointer',
   },
 
   content: {
     width: '100%',
-    height: '100%',
+    height: '80%',
     display: 'flex',
     flexDirection: 'column',
-    pt: '100px',
-    pb: '40px',
+    pt: '50px',
+    pb: '0px',
     px: '30px',
   },
 
@@ -112,7 +157,7 @@ const styles = {
       alignItems: 'center',
       justifyContent: 'center',
       color: 'text',
-      fontSize: 14,
+      fontSize: 22,
       mr: '15px',
       transition: 'all 0.25s',
       cursor: 'pointer',

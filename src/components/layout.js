@@ -15,7 +15,7 @@ export default function Layout({ children }) {
       setIsSticky(false);
     }
   };
-  
+
   return (
     <React.Fragment>
       <Sticky innerZ={1001} top={0} onStateChange={handleStateChange}>
